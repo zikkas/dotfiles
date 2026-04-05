@@ -90,7 +90,6 @@ plugins=(
   gitignore
   history-substring-search
   web-search
-  you-should-use
   z
   zsh-autosuggestions
   zsh-bat
