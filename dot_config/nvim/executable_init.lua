@@ -85,7 +85,6 @@ rtp:prepend(lazypath)
 
 require('lazy').setup({
   'NMAC427/guess-indent.nvim',
-
   {
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -98,7 +97,6 @@ require('lazy').setup({
       },
     },
   },
-
   {
     'folke/which-key.nvim',
     event = 'VimEnter',
@@ -321,44 +319,44 @@ require('lazy').setup({
         -- clangd = {},
         -- hls = {},
 
-        postgres_lsp = {},
+        -- postgres_lsp = {},
 
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-              staticcheck = true,
-              completeUnimported = true,
-              usePlaceholders = true,
-              semanticTokens = true,
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
-              },
-            },
-          },
-        },
+        -- gopls = {
+        --   settings = {
+        --     gopls = {
+        --       gofumpt = true,
+        --       staticcheck = true,
+        --       completeUnimported = true,
+        --       usePlaceholders = true,
+        --       semanticTokens = true,
+        --       codelenses = {
+        --         gc_details = false,
+        --         generate = true,
+        --         regenerate_cgo = true,
+        --         run_govulncheck = true,
+        --         test = true,
+        --         tidy = true,
+        --         upgrade_dependency = true,
+        --         vendor = true,
+        --       },
+        --       hints = {
+        --         assignVariableTypes = true,
+        --         compositeLiteralFields = true,
+        --         compositeLiteralTypes = true,
+        --         constantValues = true,
+        --         functionTypeParameters = true,
+        --         parameterNames = true,
+        --         rangeVariableTypes = true,
+        --       },
+        --       analyses = {
+        --         nilness = true,
+        --         unusedparams = true,
+        --         unusedwrite = true,
+        --         useany = true,
+        --       },
+        --     },
+        --   },
+        -- },
 
         ruff = {
           trace = 'messages',
@@ -452,6 +450,13 @@ require('lazy').setup({
             },
           },
         },
+
+        -- LaTeX
+        ltex_plus = {},
+        texlab = {},
+
+        -- Typst
+        tinymist = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -459,13 +464,15 @@ require('lazy').setup({
         -- 'clang-format',
         -- 'hadolint',
         'stylua',
-        'gofumpt',
-        'goimports',
-        'goimports-reviser',
-        'golines',
+        -- 'gofumpt',
+        -- 'goimports',
+        -- 'goimports-reviser',
+        -- 'golines',
         'prettierd',
+        'latexindent',
+        'tex-fmt',
         'vale',
-        'pgformatter',
+        -- 'pgformatter',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -517,23 +524,24 @@ require('lazy').setup({
         -- c = { 'clang-format' },
         -- cpp = { 'clang-format' },
         lua = { 'stylua' },
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        json = { 'prettierd' },
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
+        -- javascript = { 'prettierd' },
+        -- javascriptreact = { 'prettierd' },
+        -- json = { 'prettierd' },
+        -- typescript = { 'prettierd' },
+        -- typescriptreact = { 'prettierd' },
         html = { 'prettierd' },
-        vue = { 'prettierd' },
+        -- vue = { 'prettierd' },
         markdown = { 'prettierd' },
         yaml = { 'prettierd' },
         python = { 'ruff_organize_imports', 'ruff_format' },
-        go = { 'goimports', 'golines', 'goimports-reviser', 'gofumpt' },
-        sql = { 'pg_format' },
+        -- go = { 'goimports', 'golines', 'goimports-reviser', 'gofumpt' },
+        -- sql = { 'pg_format' },
+        tex = { 'latexindent', 'tex-fmt' },
       },
       formatters = {
         -- ['clang-format'] = { prepend_args = { '--fallback-style=google' } },
-        ['goimports-reviser'] = { prepend_args = { '--rm-unused' } },
-        golines = { prepend_args = { '--max-len=88' } },
+        -- ['goimports-reviser'] = { prepend_args = { '--rm-unused' } },
+        -- golines = { prepend_args = { '--max-len=88' } },
       },
     },
   },
@@ -622,17 +630,52 @@ require('lazy').setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+    branch = 'main',
+    config = function()
+      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      require('nvim-treesitter').install(parsers)
+
+      ---@param buf integer
+      ---@param language string
+      local function treesitter_try_attach(buf, language)
+        if not vim.treesitter.language.add(language) then
+          return
+        end
+        vim.treesitter.start(buf, language)
+
+        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.wo.foldmethod = 'expr'
+        vim.wo.foldlevel = 10
+
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+
+      local available_parsers = require('nvim-treesitter').get_available()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          local buf, filetype = args.buf, args.match
+
+          local language = vim.treesitter.language.get_lang(filetype)
+          if not language then
+            return
+          end
+
+          local installed_parsers = require('nvim-treesitter').get_installed 'parsers'
+
+          if vim.tbl_contains(installed_parsers, language) then
+            treesitter_try_attach(buf, language)
+          elseif vim.tbl_contains(available_parsers, language) then
+            require('nvim-treesitter').install(language):await(function()
+              treesitter_try_attach(buf, language)
+            end)
+          else
+            treesitter_try_attach(buf, language)
+          end
+        end,
+      })
+    end,
   },
 
   require 'kickstart.plugins.debug',
