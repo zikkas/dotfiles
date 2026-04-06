@@ -6,14 +6,13 @@
     args = ["-d"]
 
 [data]
-    name = {{ promptString "What is your Git name for this machine?" | quote }}
-    {{- $email := "" -}}
-    {{- if hasKey . "email" -}}
-    {{-   $email = .email -}}
+    {{- $name := "" -}}
+    {{- if hasKey . "name" -}}
+    {{-   $name = .name -}}
     {{- else -}}
-    {{-   $email = promptString "What is your Git email address for this machine?" -}}
+    {{-   $name = promptString "What is your Git name for this machine?" -}}
     {{- end -}}    
-email = {{ promptString "What is your Git email address for this machine?" | quote }}
+
     {{- $email := "" -}}
     {{- if hasKey . "email" -}}
     {{-   $email = .email -}}
