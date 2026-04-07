@@ -19,6 +19,10 @@ set $date_fmt '%Y-%m-%d_%H-%M-%S'
 
 set $wallpapers_path $HOME/Pictures/Wallpapers
 
+# --- Power Management ---
+set $check_media ~/.config/sway/scripts/check_media.sh
+set $lock_cmd ~/.config/sway/scripts/lock.sh
+
 # Vim
 set $left h
 set $down j
@@ -47,9 +51,11 @@ exec_always pkill swaybg && swaybg -i "$(find $wallpapers_path -type f | shuf -n
 
 # --- Idle Management ---
 exec_always pkill swayidle; swayidle -w \
-    timeout 180 '~/.config/sway/scripts/check_media.sh && brightnessctl -s set 5%' resume 'brightnessctl -r' \
-    timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r'  \
-    timeout 480 'swaylock'
+    timeout 180 '$check_media && brightnessctl -s set 5%' resume 'brightnessctl -r' \
+    timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r' \
+    timeout 480 '$lock_cmd' \
+    before-sleep '$lock_cmd' \
+    lock '$lock_cmd'
 
 # --- Gaps ---
 gaps inner 2
