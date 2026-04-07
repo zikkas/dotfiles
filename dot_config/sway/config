@@ -49,7 +49,7 @@ exec_always pkill swaybg && swaybg -i "$(find $wallpapers_path -type f | shuf -n
 exec_always pkill swayidle; swayidle -w \
     timeout 180 '~/.config/sway/scripts/check_media.sh && brightnessctl -s set 5%' resume 'brightnessctl -r' \
     timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r'  # \
-    # timeout 450 'swaylock'
+    # timeout 480 'swaylock'
 
 # --- Gaps ---
 gaps inner 2
