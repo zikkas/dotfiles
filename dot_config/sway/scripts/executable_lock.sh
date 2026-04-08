@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 5
+
 swaylock \
   --screenshots \
   --clock \
