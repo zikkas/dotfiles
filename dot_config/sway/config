@@ -43,7 +43,6 @@ input * {
 }
 
 # --- Output (Screen Scaling) ---
-# To find your display name, run: swaymsg -t get_outputs
 output * scale 1.25
 
 # --- Background ---
@@ -52,10 +51,7 @@ exec_always pkill swaybg && swaybg -i "$(find $wallpapers_path -type f | shuf -n
 # --- Idle Management ---
 exec_always pkill swayidle; swayidle -w \
     timeout 180 '$check_media && brightnessctl -s set 5%' resume 'brightnessctl -r' \
-    timeout 270 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r' # \
-    # timeout 475 '$lock_cmd' \
-    # before-sleep '$lock_cmd' \
-    # lock '$lock_cmd'
+    timeout 270 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r'
 
 # --- Gaps ---
 gaps inner 2
@@ -65,7 +61,7 @@ smart_gaps on
 # --- Window Decorations ---
 default_border pixel 2
 
-# Keep the title bar for floating windows (optional but helpful for dragging)
+# Keep the title bar for floating windows
 default_floating_border normal
 
 # Hide borders on the edges of the screen to save space
