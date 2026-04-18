@@ -1,4 +1,4 @@
 return {
-  'Leviathenn/nvim-transparent',
+  'xiyaowong/transparent.nvim',
   opts = { enable = true },
 }
