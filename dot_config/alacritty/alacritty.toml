@@ -58,8 +58,8 @@ program = "tmux"
 
 [window]
 decorations = "full"
-blur = true
-opacity = 0.79
+blur = false
+opacity = 0.71
 dynamic_title = true
 option_as_alt = "Both"
 startup_mode = "Maximized"
