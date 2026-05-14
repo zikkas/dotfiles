@@ -21,7 +21,7 @@ set $wallpapers_path $HOME/Pictures/Wallpapers
 
 # --- Power Management ---
 set $check_media ~/.config/sway/scripts/check_media.sh
-set $lock_cmd ~/.config/sway/scripts/lock.sh
+# set $lock_cmd ~/.config/sway/scripts/lock.sh
 
 # Vim
 set $left h
