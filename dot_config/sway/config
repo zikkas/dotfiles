@@ -43,7 +43,7 @@ input * {
 }
 
 # --- Output (Screen Scaling) ---
-output * scale 1.25
+output * scale 1.50
 
 # --- Background ---
 exec_always pkill swaybg && swaybg -i "$(find $wallpapers_path -type f | shuf -n 1)" -m fill
