@@ -469,8 +469,6 @@ require('lazy').setup({
         -- 'goimports-reviser',
         -- 'golines',
         'prettierd',
-        'latexindent',
-        'tex-fmt',
         'vale',
         -- 'pgformatter',
       })
@@ -536,7 +534,6 @@ require('lazy').setup({
         python = { 'ruff_organize_imports', 'ruff_format' },
         -- go = { 'goimports', 'golines', 'goimports-reviser', 'gofumpt' },
         -- sql = { 'pg_format' },
-        tex = { 'latexindent', 'tex-fmt' },
       },
       formatters = {
         -- ['clang-format'] = { prepend_args = { '--fallback-style=google' } },
