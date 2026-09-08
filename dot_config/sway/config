@@ -44,9 +44,6 @@ output * scale 1.35
 # --- Background ---
 exec_always pkill swaybg && swaybg -i "$(find $wallpapers_path -type f | shuf -n 1)" -m fill
 
-# --- Idle Management ---
-exec sway-audio-idle-inhibit
-
 # --- Gaps ---
 gaps inner 2
 gaps outer 2
@@ -207,6 +204,7 @@ bar {
 
 for_window [window_role="GtkFileChooserDialog"] floating enable, resize set 800 600, move position center
 
+# --- Idle Management ---
 exec_always pkill swayidle; swayidle -w \
     timeout 270 'brightnessctl -s set 5%' resume 'brightnessctl -r' \
     timeout 330 'swaymsg "output * power off"' resume 'swaymsg "output * power on" && brightnessctl -r' \
@@ -214,3 +212,5 @@ exec_always pkill swayidle; swayidle -w \
     timeout 600 'systemctl suspend' \
     after-resume 'swaymsg "output * power on"; brightnessctl -r' \
     before-sleep 'hyprlock &'
+exec sway-audio-idle-inhibit
+
