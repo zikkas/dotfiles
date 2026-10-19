@@ -1,12 +1,3 @@
-return {
-  'windwp/nvim-ts-autotag',
-  ft = {
-    'html',
-    'javascript',
-    'typescript',
-    'vue',
-  },
-  config = function()
-    require('nvim-ts-autotag').setup()
-  end,
-}
+-- Auto close/rename HTML tags (treesitter-based)
+vim.pack.add { 'https://github.com/windwp/nvim-ts-autotag' }
+require('nvim-ts-autotag').setup {}

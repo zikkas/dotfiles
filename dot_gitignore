@@ -194,3 +194,5 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
 
+# Personal Files in Projects
+TODO.md # This is a file where I will write my todos, remarks and explinations of random things about the repos.

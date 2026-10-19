@@ -1,19 +1,7 @@
-return {
-  {
-    'MeanderingProgrammer/markdown.nvim',
-    main = 'render-markdown',
-    opts = {},
-    name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you use the mini.nvim suite
-    ft = { 'markdown' },
-  },
-  {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && yarn install --frozen-lockfile',
-    init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
-    end,
-    ft = { 'markdown' },
-  },
-}
+-- Render markdown buffers in place
+vim.pack.add { 'https://github.com/MeanderingProgrammer/markdown.nvim' }
+require('render-markdown').setup {}
+
+-- Markdown preview (the `yarn install` build runs via the PackChanged hook in init.lua)
+vim.g.mkdp_filetypes = { 'markdown' }
+vim.pack.add { 'https://github.com/iamcco/markdown-preview.nvim' }

@@ -1,10 +1,3 @@
-return {
-  'olexsmir/gopher.nvim',
-  ft = 'go',
-  config = function(_, opts)
-    require('gopher').setup(opts)
-  end,
-  build = function()
-    require('gopher').install_deps { sync = true }
-  end,
-}
+-- Go tooling (the `install_deps` build runs via the PackChanged hook in init.lua)
+vim.pack.add { 'https://github.com/olexsmir/gopher.nvim' }
+require('gopher').setup {}
