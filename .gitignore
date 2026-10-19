@@ -11,3 +11,6 @@ styles
 /.config/nvim/.gitignore
 
 /.config/nvim/lazy-lock.json
+
+# vim.pack lockfile — generated per-device, never tracked
+dot_config/nvim/nvim-pack-lock.json

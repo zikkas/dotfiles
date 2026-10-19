@@ -41,7 +41,9 @@ require('mason-nvim-dap').setup {
   -- online, please don't ask me how to install them :)
   ensure_installed = {
     -- Update this to ensure that you have the debuggers for the langs you want
-    'debugpy',
+    -- NOTE: entries are nvim-dap adapter names, not mason package names.
+    -- 'python' is what resolves to the mason package "debugpy".
+    'python',
     'delve',
   },
 }
