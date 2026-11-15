@@ -802,6 +802,7 @@ do
         },
       },
     },
+
     pyright = {
       settings = {
         pyright = {
@@ -898,11 +899,16 @@ do
       },
     },
 
-    -- LaTeX
-    codebook = {},
-
     -- Typst
-    tinymist = {},
+    tinymist = {
+      settings = {
+        formatterMode = 'typstyle',
+        formatterPrintWidth = 80,
+        formatterIndentSize = 2,
+        formatterProseWrap = 'fill',
+        exportPdf = 'never',
+      },
+    },
   }
 
   vim.pack.add {
@@ -993,6 +999,13 @@ do
       python = { 'ruff_organize_imports', 'ruff_format' },
       -- go = { 'goimports', 'golines', 'goimports-reviser', 'gofumpt' },
       -- sql = { 'pg_format' },
+    },
+    formatters = {
+      prettierd = {
+        env = {
+          PRETTIERD_DEFAULT_CONFIG = vim.fn.expand '~/.config/prettier/.prettierrc',
+        },
+      },
     },
   }
 
